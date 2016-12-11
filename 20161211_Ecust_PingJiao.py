@@ -1,6 +1,7 @@
 #coding=utf-8
 import mechanize
 import requests
+import re
 
 def main(sno=None,password=None):
     global br
@@ -17,12 +18,20 @@ def main(sno=None,password=None):
 
     try:
         loginUrl = 'http://pjb.ecust.edu.cn/pingce/login.php'
-        listUrl = 'http://pjb.ecust.eud.cn/pingce/list.php'
         login = r.post(url=loginUrl,data={'action':'login','sno':sno,'password':password})
-        list = r.get(url=listUrl)
+        spider = re.findall('href="pg\.php+(.*?)"',login.text,re.S)
+        length = len(spider)
+        spiderList = []
+        for i in range(0, length - 1):
+            spiderList.append('http://pjb.ecust.edu.cn/pingce/pg.php' + spider[i])
+        pingCe = []
+        for i in range(0, length - 1):
+            pingCe.append(r.get(url=spiderList[i]).text)
+        print pingCe
+
         cookies = r.cookies
         br.set_cookiejar(cookies)
-        print login.text
+
     except Exception , e:
         print Exception,':',e
 
