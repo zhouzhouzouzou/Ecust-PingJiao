@@ -28,6 +28,7 @@ def main(sno=None,password=None):
             pingCe.append(r.get(url=spiderList[i]).text)
         cookies = r.cookies
         br.set_cookiejar(cookies)
+        print spiderList[0]
         pj_normal(spiderList[0])
 
 
@@ -38,11 +39,12 @@ def main(sno=None,password=None):
 def pj_normal(url):
     r = br.open(url)
     br.select_form(name='Form1')
-    html = r.read()
+    html = r.read().decode('gbk').encode('utf-8')
+    print html
     for i in range(1,20):
-        pattern = re.compile('name="yq+str(i)"')
-        match = pattern.match(html)
-        for value in values:
-            br.form['yq'+str(i)] = [match.group()]
+        values = re.findall('input(.*?)type="submit"(.*?)"',html,re.S)
+        print values
+        #for value in values:
+        #   br.form['yq'+str(i)] = [match.group()]
 
 main('10150982','125018')
