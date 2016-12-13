@@ -40,12 +40,10 @@ def pj_normal(url):
     r = br.open(url)
     br.select_form(name='Form1')
     html = r.read().decode('gbk').encode('utf-8')
-    fp = open('text.txt','w+')
-    fp.write(html)
-    fp.close()
-    values = re.findall('name="yq+(.*?)"\svalue="(.*?)"', html, re.S)
-    print values
-    #for i in range(1,20):
-    #    br.form['yq'+str(i)] = values[i][1]
+    print html
+    for i in range(0,20):
+        values = re.findall(r'name="yq'+str(i)+'"\svalue="(.*?)"', html, re.S)
+    #    br.form['yq'+str(i)] = [values[i][1]]
+        print values
 
 main('10150982','125018')
