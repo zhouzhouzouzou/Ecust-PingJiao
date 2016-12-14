@@ -19,17 +19,33 @@ def main(sno=None,password=None):
     try:
         loginUrl = 'http://pjb.ecust.edu.cn/pingce/login.php'
         login = r.post(url=loginUrl,data={'action':'login','sno':sno,'password':password})
-        spider = re.findall('href="pg\.php+(.*?)"',login.text,re.S)
-        length = len(spider)
-        spiderList = []
-        pingCe = []
-        for i in range(0, length - 1):
-            spiderList.append('http://pjb.ecust.edu.cn/pingce/pg.php' + spider[i])
-            pingCe.append(r.get(url=spiderList[i]).text)
+        normal = re.findall('href=\"pg\.php(.*?)\"',login.text)
+        yypg = re.findall('href=\"yypg\.php(.*?)\"',login.text)
+        typg = re.findall('href=\"typg\.php(.*?)\"',login.text)
+        bdspg = re.findall('href=\"bdspg\.php(.*?)\"',login.text)
+        normalList = []
+        yypgList = []
+        typgList = []
+        bdspgList = []
+        for i in range(0, len(normal)):
+            normalList.append('http://pjb.ecust.edu.cn/pingce/pg.php' + normal[i])
+        for i in range(0, len(yypg)):
+            yypgList.append('http://pjb.ecust.edu.cn/pingce/yypg.php' + yypg[i])
+        for i in range(0, len(typg)):
+            typgList.append('http://pjb.ecust.edu.cn/pingce/typg.php' + typg[i])
+        for i in range(0, len(bdspg)):
+            bdspgList.append('http://pjb.ecust.edu.cn/pingce/bdspg.php' + bdspg[i])
         cookies = r.cookies
         br.set_cookiejar(cookies)
-        for i in range(0,len(spiderList)-1):
-            pj_normal(spiderList[i])
+        for i in range(0,len(normalList)):
+            pj_normal(normalList[i])
+        for i in range(0,len(yypgList)):
+            pj_normal(yypgList[i])
+        for i in range(0,len(typgList)):
+            pj_normal(typgList[i])
+        for i in range(0,len(bdspgList)):
+            pj_normal(bdspgList[i])
+
 
     except Exception , e:
         print Exception,':',e
