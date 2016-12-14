@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>故障报修</title>
+    <title>Ecust一键评教</title>
     <link href="res/css/bootstrap.min.css" rel="stylesheet">
     <link href="res/css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -156,34 +156,15 @@
     <script src="res/js/jquery-1.12.4.min.js"></script>
     <script src="res/js/bootstrap.min.js"></script>
     <script src="res/js/jquery.validate.min.js"></script>
-    <?php if (!$submit): ?>
     <script>
-      jQuery.extend(jQuery.validator.messages, {
-        required: "必填", remote: "格式错误", email: "格式错误", url: "格式错误", date: "格式错误", dateISO: "格式错误", number: "格式错误", digits: "格式错误", creditcard: "格式错误", equalTo: "格式错误", accept: "格式错误", maxlength: "格式错误", minlength: "格式错误", rangelength: "格式错误", range: "格式错误", max: "格式错误", min: "格式错误"
-      });
-      $('form').validate({
-        rules: {
-        },
-        highlight: function(element) {
-          $(element).closest('.form-group').addClass('has-error');
-        },
-        unhighlight: function(element) {
-          $(element).closest('.form-group').removeClass('has-error');
-        },
-        errorElement: 'span',
-        errorClass: 'help-block',
-        errorPlacement: function(error, element) {
-          if (element.attr("id") == "optionsRadios1") {
-            return;
-          }
-          if (element.parent('.input-group').length) {
-            error.insertAfter(element.parent());
-          } else {
-            error.insertAfter(element);
-          }
-        }
-      });
+      function submit(){
+        id = $("#id").val();
+        pw = $("#pw").val();
+        url = "./run.php?id=" + id +"&pw=" +pw ;
+        $.get(url,function(data,status){
+          alert(data);
+        });
+      }
     </script>
-    <?php endif; ?>
   </body>
 </html>
