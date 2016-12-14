@@ -1,0 +1,189 @@
+<?php if(!defined('InSign')) exit; ?>
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>故障报修</title>
+    <link href="res/css/bootstrap.min.css" rel="stylesheet">
+    <link href="res/css/style.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="res/js/html5shiv.min.js"></script>
+      <script src="res/jsrespond.min.js"></script>
+    <![endif]-->
+    <style>
+      body {
+        background: #EFEFEF;
+      }
+      .main-title {
+        padding: 40px 15px;
+        text-align: center;
+      }
+      .radio {
+        float: left;
+        padding-right: 20px;
+      }
+      .form-control {
+        box-shadow: none;
+        height: 36px;
+      }
+      .form-control:focus {
+        border-color: #66afe9;
+        outline: 0;
+        box-shadow: none;
+      }
+      .well {
+        box-shadow: none;
+        box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.1);
+        border-radius: 0;
+        position: relative;
+        background: white;
+        border: none;
+        padding: 0;
+      }
+      .well:after {
+        width: 180px;
+        height: 30px;
+        content: " ";
+        margin-left: -90px;
+        border: 1px solid rgba(200, 200, 200, .8);
+        background: rgba(241, 241, 241, 0.6);
+        box-shadow: 0px 0 3px rgba(0, 0, 0, 0.1);
+        transform: rotate(-5deg);
+        position: absolute;
+        left: 50%;
+        top: -17px;
+      }
+      .c-success, .c-fail {
+        padding: 90px 0 30px;
+      }
+      .c-success p, .c-fail p {
+        text-align: center;
+        font-size: 20px;
+      }
+      .c-success p {
+        color: #0f9d58;
+      }
+      .c-fail p {
+        color: #d22222;
+      }
+      .c-success .c-successicon,.c-fail .c-failicon {
+        font-size: 52px;
+      }
+      legend {
+        padding-top: 17px;
+        padding-bottom: 15px;
+        text-align: center;
+        border-bottom: 2px dashed #e5e5e5;
+      }
+      .sign .form-horizontal .form-group {
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .c-submit-btn {
+        margin-bottom: 0;
+        padding-top: 10px;
+      }
+      .sign .btn {
+        width: 100%;
+        border-radius: 0;
+        font-size: 19px;
+        padding: 13px 0;
+        background: #F1F1F1;
+        outline: 0 !important;
+      }
+      .sign .btn:hover {
+        background: #EEE;
+      }
+      .sign .btn:active {
+        background: #DDD;
+        box-shadow: none;
+      }
+      .c-footer {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        opacity: .8;
+      }
+      .c-footer .logop {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-title">
+        <h1>Ecust-一键评教系统</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+          <?php if (!$submit): ?>
+          <div class="well sign bs-component">
+            <form class="form-horizontal" action="/" method="post">
+              <fieldset>
+                <legend>提交信息</legend>
+                <div class="form-group">
+                  <label for="inputBuilding" class="col-sm-3 control-label">学号 *</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="sno" id="sno" required>
+                    <!--<span class="help-block">可填写多个</span>-->
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputBrand" class="col-sm-3 control-label">密码 *</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="password" id="password" placeholder="身份证后六位" required>
+                  </div>
+                </div>
+                <div class="form-group c-submit-btn">
+                  <button type="submit" name="submit" class="btn"><span class="glyphicon glyphicon-chevron-right"></span> 提交</button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <?php else: ?>
+            <?php if ($success): ?>
+            <div class="well sign c-success bs-component">
+              <p class="c-successicon"><span class="glyphicon glyphicon-ok"></span></p>
+              <p>一键评教成功！</p>
+              <p style="margin-bottom:2px;padding-top:40px;font-size:15px"><a href="http://pjb.ecust.edu.cn/pingce/index.php" target="_blank">可以登录点击此处查看评教情况哦~</a></p>
+            <?php endif; ?>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+    <script src="res/js/jquery-1.12.4.min.js"></script>
+    <script src="res/js/bootstrap.min.js"></script>
+    <script src="res/js/jquery.validate.min.js"></script>
+    <?php if (!$submit): ?>
+    <script>
+      jQuery.extend(jQuery.validator.messages, {
+        required: "必填", remote: "格式错误", email: "格式错误", url: "格式错误", date: "格式错误", dateISO: "格式错误", number: "格式错误", digits: "格式错误", creditcard: "格式错误", equalTo: "格式错误", accept: "格式错误", maxlength: "格式错误", minlength: "格式错误", rangelength: "格式错误", range: "格式错误", max: "格式错误", min: "格式错误"
+      });
+      $('form').validate({
+        rules: {
+        },
+        highlight: function(element) {
+          $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function(element) {
+          $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function(error, element) {
+          if (element.attr("id") == "optionsRadios1") {
+            return;
+          }
+          if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+          } else {
+            error.insertAfter(element);
+          }
+        }
+      });
+    </script>
+    <?php endif; ?>
+  </body>
+</html>
